@@ -7,7 +7,7 @@ class BuildSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Build
-        fields = ['id', 'name', 'description', 'author', 'lvl1to20', 'author', 'created_at', 'amount_of_likes', 'is_liked_by_user']
+        fields = ['id', 'name', 'description', 'lvl1to20', 'author', 'created_at', 'amount_of_likes', 'is_liked_by_user']
         read_only_fields = ['author', 'created_at', 'amount_of_likes', 'is_liked_by_user']
     
     def get_amount_of_likes(self, obj):
