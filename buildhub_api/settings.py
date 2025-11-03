@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'buildhubdb',
         'USER': 'buildhubuser',
-        'PASSWORD': 'buildhubpassword',
+        'PASSWORD': 'buildhubpassword',  # Olny for local development!!! Change to os.getenv() before deploying!!!
         'HOST': 'localhost',
         'PORT': '5432',
     }
