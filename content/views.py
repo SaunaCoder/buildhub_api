@@ -12,3 +12,12 @@ class BuildViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author = self.request.user)
+
+class LikeViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
+    queryset = Like.objects.all()
+    serializer_class = LikeSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(author = self.request.user)
+    

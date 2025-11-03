@@ -14,3 +14,9 @@ class Build(models.Model):
     def __str__(self):
         return self.name
     
+class Like(models.Model):
+    build = models.ForeignKey(Build, on_delete=models.CASCADE, related_name="likes")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="given_likes")
+
+    class Meta:
+        unique_together = ('build', 'author')
