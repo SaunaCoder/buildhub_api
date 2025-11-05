@@ -20,3 +20,10 @@ class Like(models.Model):
 
     class Meta:
         unique_together = ('build', 'author')
+
+class Comment(models.Model):
+    build = models.ForeignKey(Build, null=True, blank=True, on_delete=models.CASCADE, related_name="comments")
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE, related_name="replies")
+    created_at = models.DateTimeField(auto_now_add=True)
