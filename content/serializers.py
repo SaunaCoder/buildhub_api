@@ -4,12 +4,13 @@ from .models import *
 class BuildSerializer(serializers.ModelSerializer):
     amount_of_likes = serializers.SerializerMethodField()
     is_liked_by_user = serializers.SerializerMethodField()
+    is_user_an_author = serializers.SerializerMethodField()
     comments = serializers.SerializerMethodField()
 
     class Meta:
         model = Build
-        fields = ['id', 'name', 'description', 'lvl1to20', 'author', 'created_at', 'amount_of_likes', 'is_liked_by_user', 'comments']
-        read_only_fields = ['author', 'created_at', 'amount_of_likes', 'is_liked_by_user', 'comments']
+        fields = ['id', 'name', 'description', 'lvl1to20', 'author', 'created_at', 'amount_of_likes', 'is_liked_by_user', 'is_user_an_author', 'comments']
+        read_only_fields = ['author', 'created_at', 'amount_of_likes', 'is_liked_by_user', 'is_user_an_author', 'comments']
     
     def get_amount_of_likes(self, obj):
         return obj.likes.count()
@@ -19,6 +20,9 @@ class BuildSerializer(serializers.ModelSerializer):
     
     def get_comments(self, obj):
         return CommentSerializer(obj.comments.all(), many = True).data
+    
+    def get_is_user_an_author(self, obj):
+        return obj.author == self.context['request'].user
 
 class LikeSerializer(serializers.ModelSerializer):
     class Meta:
